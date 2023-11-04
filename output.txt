@@ -1,0 +1,9 @@
+Script started on Sat 04 Nov 2023 06:33:43 PM EDT
+]0;yelzamek@login01.darwin:~/pic_proj/CISC372_picProject[?1034h[yelzamek@login01.darwin CISC372_picProject]$ exitcat *.erroutsbatch batch.shls[Kvim batch.sh[3Pcat *.outerrsbatch batch.sh[3Pvim[C[C[C[C[C[C[C[C[C[3Pcat *.erroutls[Ksbatch batch.sh[3Pvim[C[C[C[C[C[C[C[C[C[3@sbatch[C[C[C[C[C[C[C[C[C[3Pvim[C[C[C[C[C[C[C[C[Cls[Ksalloc --ntasks=1 --cpus-per-task=4 --partition=standard[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[K[1Pslssalloc --ntasks=1 --cpus-per-task=4 --partition=standard[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[K[K[K./imageomp pic1.edge[K[K[K[Kjpg edge
+Took 7 seconds
+]0;yelzamek@login01.darwin:~/pic_proj/CISC372_picProject[yelzamek@login01.darwin CISC372_picProject]$ ./imageomp pic1.jpg edge[1P[1P[1P[1@e[C[1@t
+Took 7 seconds
+]0;yelzamek@login01.darwin:~/pic_proj/CISC372_picProject[yelzamek@login01.darwin CISC372_picProject]$ exit
+exit
+
+Script done on Sat 04 Nov 2023 06:34:29 PM EDT
