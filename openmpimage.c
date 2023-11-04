@@ -14,7 +14,7 @@
 #define THREADCOUNT 4
 #define ALGSIZE 3
 
-//int nthreads;
+int nthreads;
 
 enum KernelTypes type;
 struct args{
