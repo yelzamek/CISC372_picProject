@@ -11,7 +11,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
-#define THREADCOUNT 4
+#define NTHREADS 4
 #define ALGSIZE 3
 
 enum KernelTypes type;
@@ -62,7 +62,7 @@ uint8_t getPixelValue(Image* srcImage,int x,int y,int bit,Matrix algorithm){
     return result;
 }
 
-//convolute:  Applies a kernel matrix to an image
+/*//convolute:  Applies a kernel matrix to an image
 //Parameters: srcImage: The image being convoluted
 //            destImage: A pointer to a  pre-allocated (including space for the pixel array) structure to receive the convoluted image.  It should be the same size as srcImage
 //            algorithm: The kernel matrix to use for the convolution
@@ -77,6 +77,23 @@ void convolute(Image* srcImage,Image* destImage,Matrix algorithm){
             }
         }
     }
+}*/
+
+//convolutewpthreads:  Applies a kernel matrix to an image
+//Paramters:  void* arguments: the set of args being passed in by the threads
+//              This includes the src image, dest image, threadID, and respective algo
+//Returns:    Nothing
+void* convolute(void *arguments){
+    struct args *args = (struct args*)arguments;
+    int row,pix,bit,span;
+    span=args->src->bpp*args->src->bpp;
+    for (row=0;row<args->src->height;row++){
+        for (pix=0;pix<args->src->width;pix++){
+            for (bit=0;bit<args->src->bpp;bit++){
+                args->dest->data[Index(pix,row,args->src->width,bit,args->src->bpp)]=getPixelValue(args->src,pix,row,bit,algorithms[type]);
+            }
+        }
+    }
 }
 
 //convolute:  Applies a kernel matrix to an image
@@ -85,12 +102,12 @@ void convolute(Image* srcImage,Image* destImage,Matrix algorithm){
 //            algorithm: The kernel matrix to use for the convolution
 //Returns: Nothing
 void convolutewpthreads(Image* srcImage,Image* destImage,Matrix algorithm){
-    pthread_t* arr = malloc(THREADCOUNT*sizeof(pthread_t));
-    for (int i = 0; i < THREADCOUNT; i++){
+    pthread_t* arr = malloc(NTHREADS*sizeof(pthread_t));
+    for (int i = 0; i < NTHREADS; i++){
         struct args args = {i, srcImage, destImage};
         pthread_create(&arr[i], NULL, &convolute, &args);
     }
-    for (int j = 0; j < THREADCOUNT; j++){
+    for (int j = 0; j < NTHREADS; j++){
         pthread_join(arr[j], NULL);
     }
     free(arr);

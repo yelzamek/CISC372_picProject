@@ -11,10 +11,8 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
-#define THREADCOUNT 4
-#define ALGSIZE 3
-
-int nthreads;
+// #define NTHREADS 4
+// #define ALGSIZE 3
 
 enum KernelTypes type;
 struct args{
@@ -73,7 +71,7 @@ uint8_t getPixelValue(Image* srcImage,int x,int y,int bit,Matrix algorithm){
 void convolute(Image* srcImage,Image* destImage,Matrix algorithm){
     int row,pix,bit,span;
     span=srcImage->bpp*srcImage->bpp;
-    #pragma omp for
+    #pragma omp for //iterates over image pixels
     for (row=0;row<srcImage->height;row++){
         for (pix=0;pix<srcImage->width;pix++){
             for (bit=0;bit<srcImage->bpp;bit++){
@@ -127,7 +125,7 @@ int main(int argc,char** argv){
     destImage.width=srcImage.width;
     destImage.data=malloc(sizeof(uint8_t)*destImage.width*destImage.bpp*destImage.height);
     
-    # pragma omp parallel
+    # pragma omp parallel //function is called in parallel by multiple threads
     convolute(&srcImage,&destImage,algorithms[type]);
    
     stbi_write_png("output.png",destImage.width,destImage.height,destImage.bpp,destImage.data,destImage.bpp*destImage.width);
